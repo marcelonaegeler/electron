@@ -1,7 +1,7 @@
 ( function () {
   "use strict";
 
-  var remote = require('electron').remote;
+  var remote = require( 'electron' ).remote;
 
   console.log( remote.getGlobal( 'variavel' ) );
 
