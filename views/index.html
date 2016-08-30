@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Hello World!</title>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body id="app">
 
@@ -13,21 +13,24 @@
       <form class="col s12">
         <div class="row">
           <div class="input-field col s6">
-            <input id="input_cep" name="cep" type="text" class="validate" maxlength="8" v-model="cep" v-on:keyup="searchCEP">
+            <input id="input_cep" name="cep" type="text" class="validate" maxlength="8" v-model="cep" v-on:keyup="searchCEP" placeholder="Busque por CEP">
             <label for="input_cep">CEP</label>
           </div>
           <div class="input-field col s6">
-            <button type="button" class="waves-effect waves-light btn" v-on:click="searchCEP">Buscar</button>
+            <button type="button" class="waves-effect waves-light btn" v-on:click="searchCEP" v-bind:disabled="search_button_disabled">
+              <i class="left material-icons">search</i>
+               {{ search_button_text }}
+            </button>
           </div>
         </div>
 
         <div class="row">
           <div class="input-field col s6">
-            <input id="input_cidade" name="cidade" type="text" class="validate" v-model="cidade">
+            <input id="input_cidade" name="cidade" type="text" class="validate" v-model="cidade" placeholder="Cidade">
             <label for="input_cidade">Cidade</label>
           </div>
           <div class="input-field col s6">
-            
+
           </div>
         </div>
 
