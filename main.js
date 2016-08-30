@@ -7,7 +7,11 @@ let win;
 
 var createWindow = function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow( { width: 950, height: 750 } );
+  win = new BrowserWindow({
+    width: 1280
+    , height: 800
+    , icon: `file://${__dirname}/public/icons/app.png`
+  });
 
   global.getAddress = getAddress;
   global.Clients = Clients;
@@ -16,13 +20,10 @@ var createWindow = function createWindow () {
   win.loadURL( `file://${__dirname}/views/index.html` );
 
   // Open the DevTools.
-  // win.webContents.openDevTools();
+  win.webContents.openDevTools();
 
   // Emitted when the window is closed.
   win.on( 'closed', () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
     win = null
   });
 };

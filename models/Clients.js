@@ -1,10 +1,9 @@
-/*
 var mongoskin = require( '../config_db' )
   , db = mongoskin.db
   , mongo = mongoskin.mongo
   , router = {};
-*/
-var router = {};
+
+// var router = {};
 
 var clientSchema = function ( data ) {
 	return {
@@ -20,7 +19,7 @@ var clientSchema = function ( data ) {
 };
 
 
-router.getExample = function () {
+router.getExample = function ( phone, callback ) {
   var clientExample = {
     name: 'Marcelo A Naegeler'
 		, phone: '4788556581'
@@ -32,7 +31,7 @@ router.getExample = function () {
     , postal_code: '89120000'
   };
 
-  return clientSchema( clientExample );
+  return callback( clientSchema( clientExample ) );
 };
 
 module.exports = router;

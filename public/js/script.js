@@ -17,6 +17,7 @@
       , state: ''
 
       , phone: ''
+      , name: ''
 
       , search_button_disabled: false
       , search_button_text: 'Buscar'
@@ -25,7 +26,12 @@
     , methods: {
 
       findClient: function () {
-        console.log( app.$data.phone, Clients.getExample() ); // YEY!!!
+
+        Clients.getExample( app.$data.phone, function ( res ) {
+          for ( var i in res ) {
+            app.$data[ i ] = res[ i ];
+          }
+        });
       }
 
       , searchCEP: function () {
