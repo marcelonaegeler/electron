@@ -1,4 +1,5 @@
 const { app, BrowserWindow, remote } = require( 'electron' )
+const https = require( 'https' )
 
 let win;
 
@@ -6,7 +7,7 @@ var createWindow = function createWindow () {
   // Create the browser window.
   win = new BrowserWindow( { width: 800, height: 600 } );
 
-  global.variavel = 'Marcelo!';
+  global.getAddress = getAddress;
 
   // and load the index.html of the app.
   win.loadURL( `file://${__dirname}/views/index.html` );
@@ -20,6 +21,22 @@ var createWindow = function createWindow () {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     win = null
+  });
+};
+
+var getAddress = function ( cep, callback ) {
+  var url = `https://maps.googleapis.com/maps/api/geocode/json?address=${cep}`;
+  https.get( url, function ( res ) {
+    var body = '';
+
+    res.on( 'data', function  ( chunk ) {
+      body += chunk;
+    });
+
+    res.on( 'end', function () {
+      callback( JSON.parse( body ) );
+    });
+
   });
 };
 
