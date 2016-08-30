@@ -27,11 +27,22 @@
 
         getAddress( app.$data.cep, function ( address ) {
           address = address.results[ 0 ].address_components;
-          app.$data.cidade = Helpers.getObjectFromArray( address, 'types', 'administrative_area_level_2' ).long_name;
+          var tmp_data = {};
+          tmp_data.cidade = Helpers.getObjectFromArray( address, 'types', 'administrative_area_level_2' );
+          tmp_data.estado = Helpers.getObjectFromArray( address, 'types', 'administrative_area_level_1' );
+          tmp_data.bairro = Helpers.getObjectFromArray( address, 'types', 'sublocality' );
+          tmp_data.endereco = Helpers.getObjectFromArray( address, 'types', 'address' );
+          tmp_data.numero = Helpers.getObjectFromArray( address, 'types', 'number' );
 
+          app.$data.cidade = tmp_data.cidade ? tmp_data.cidade.long_name : '';
+          app.$data.estado = tmp_data.estado ? tmp_data.estado.short_name : '';
+          app.$data.bairro = tmp_data.bairro ? tmp_data.bairro.long_name : '';
+          app.$data.endereco = tmp_data.endereco ? tmp_data.endereco.long_name : '';
+          app.$data.numero = tmp_data.numero ? tmp_data.numero.long_name : '';
 
           app.$data.search_button_disabled = false;
           app.$data.search_button_text = 'Buscar';
+          
           Materialize.updateTextFields();
         });
 
