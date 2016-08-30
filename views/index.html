@@ -1,42 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html id="app">
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title v-model="title">Hello World!</title>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
+    <link rel="stylesheet" href="../public/css/styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
-  <body id="app">
+  <body class="teal lighten-5">
 
 
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo">Logo</a>
+        <!--
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="sass.html">Sass</a></li>
+          <li><a href="badges.html">Components</a></li>
+          <li><a href="collapsible.html">Javascript</a></li>
+          <li><a href="mobile.html">Mobile</a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+          <li><a href="sass.html">Sass</a></li>
+          <li><a href="badges.html">Components</a></li>
+          <li><a href="collapsible.html">Javascript</a></li>
+          <li><a href="mobile.html">Mobile</a></li>
+        </ul>
+        -->
+      </div>
+    </nav>
+
+    <!--
     <div class="row">
-      <form class="col s12">
+      <div class="col s12">
+      -->
         <div class="row">
-          <div class="input-field col s6">
-            <input id="input_cep" name="cep" type="text" class="validate" maxlength="8" v-model="cep" v-on:keyup="searchCEP" placeholder="Busque por CEP">
-            <label for="input_cep">CEP</label>
-          </div>
-          <div class="input-field col s6">
-            <button type="button" class="waves-effect waves-light btn" v-on:click="searchCEP" v-bind:disabled="search_button_disabled">
-              <i class="left material-icons">search</i>
-               {{ search_button_text }}
-            </button>
-          </div>
+          <form class="col s12 card">
+
+            <div class="card-content">
+
+              <div class="row">
+                <div class="col s12">
+                  <span class="card-title">Endereço do cliente</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="input_cep" name="cep" type="text" class="validate" maxlength="8" v-model="cep" v-on:keyup="searchCEP" placeholder="Busque por CEP">
+                  <label for="input_cep">CEP</label>
+                </div>
+
+                <div class="input-field col s6">
+                  <button type="button" class="waves-effect waves-light btn" v-on:click="searchCEP" v-bind:disabled="search_button_disabled">
+                    <i class="left material-icons">search</i>
+                     {{ search_button_text }}
+                  </button>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="input_cidade" name="cidade" type="text" class="validate" v-model="cidade" placeholder="Cidade">
+                  <label for="input_cidade">Cidade</label>
+                </div>
+                <div class="input-field col s6">
+
+                </div>
+              </div>
+            </div>
+
+          </form>
         </div>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="input_cidade" name="cidade" type="text" class="validate" v-model="cidade" placeholder="Cidade">
-            <label for="input_cidade">Cidade</label>
-          </div>
-          <div class="input-field col s6">
-
-          </div>
-        </div>
-
-      </form>
+<!--
+      </div>
     </div>
-
+-->
 
     <script src="../node_modules/hammerjs/hammer.min.js"></script>
     <script src="../node_modules/materialize-css/dist/js/materialize.min.js"></script>

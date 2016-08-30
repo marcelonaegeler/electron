@@ -6,7 +6,8 @@
   var app = new Vue({
     el: '#app'
     , data: {
-      cep: ''
+      title: 'Oie'
+      , cep: ''
       , endereco: ''
       , numero: ''
       , bairro: ''
@@ -37,5 +38,7 @@
       }
     }
   });
+
+   $( ".button-collapse" ).sideNav();
 
 })();
