@@ -47,17 +47,25 @@
 
             <div class="row">
               <div class="input-field col s6">
-                <input id="input_telefone" name="telefone" type="text" class="validate" v-model="telefone" placeholder="Busque por telefone">
-                <label for="input_telefone">Telefone</label>
+                <input id="input_phone" name="phone" type="text" class="validate" v-model="phone" placeholder="Busque por telefone">
+                <label for="input_phone">Telefone</label>
               </div>
 
               <div class="input-field col s6">
-                <button type="button" class="waves-effect waves-light btn" v-on:click="searchPhone" v-bind:disabled="search_button_phone_disabled">
+                <button type="button" class="waves-effect waves-light btn" v-on:click="findClient">
                   <i class="left material-icons">search</i>
-                   {{ search_button_text }}
+                   Buscar
                 </button>
               </div>
             </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="input_name" name="name" type="text" class="validate" v-model="name" placeholder="Nome do cliente">
+                <label for="input_name">Nome</label>
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -78,8 +86,9 @@
 
             <div class="row">
               <div class="input-field col s6">
-                <input id="input_cep" name="cep" type="text" class="validate" maxlength="8" v-model="cep" v-on:keyup="searchCEP" placeholder="Busque por CEP">
-                <label for="input_cep">CEP</label>
+                <input id="input_postal_code" name="postal_code" type="text" class="validate" maxlength="8" v-model="postal_code" v-on:keyup="searchCEP" placeholder="Busque por CEP">
+                <label for="input_postal_code">CEP</label>
+                <span class="red-text" v-if="!!search_postal_code_error">{{ search_postal_code_error }}</span>
               </div>
 
               <div class="input-field col s6">
@@ -93,30 +102,30 @@
 
             <div class="row">
               <div class="input-field col s6">
-                <input id="input_endereco" name="endereco" type="text" class="validate" v-model="endereco" placeholder="Endereço">
-                <label for="input_endereco">Endereço</label>
+                <input id="input_address" name="address" type="text" class="validate" v-model="address" placeholder="Endereço">
+                <label for="input_address">Endereço</label>
               </div>
               <div class="input-field col s6">
-                <input id="input_numero" name="numero" type="text" class="validate" v-model="numero" placeholder="Número">
-                <label for="input_numero">Número</label>
+                <input id="input_number" name="number" type="text" class="validate" v-model="number" placeholder="Número">
+                <label for="input_number">Número</label>
               </div>
             </div>
 
             <div class="row">
               <div class="input-field col s12">
-                <input id="input_bairro" name="bairro" type="text" class="validate" v-model="bairro" placeholder="Bairro">
-                <label for="input_bairro">Bairro</label>
+                <input id="input_sublocality" name="sublocality" type="text" class="validate" v-model="sublocality" placeholder="Bairro">
+                <label for="input_sublocality">Bairro</label>
               </div>
             </div>
 
             <div class="row">
               <div class="input-field col s6">
-                <input id="input_cidade" name="cidade" type="text" class="validate" v-model="cidade" placeholder="Cidade">
-                <label for="input_cidade">Cidade</label>
+                <input id="input_city" name="city" type="text" class="validate" v-model="city" placeholder="Cidade">
+                <label for="input_city">Cidade</label>
               </div>
               <div class="input-field col s6">
-                <input id="input_estado" name="estado" type="text" class="validate" v-model="estado" placeholder="Estado">
-                <label for="input_estado">Estado</label>
+                <input id="input_state" name="state" type="text" class="validate" v-model="state" placeholder="Estado">
+                <label for="input_state">Estado</label>
               </div>
             </div>
           </div>

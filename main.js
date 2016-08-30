@@ -1,6 +1,8 @@
 const { app, BrowserWindow, remote } = require( 'electron' )
 const https = require( 'https' )
 
+const Clients = require( './models/Clients' );
+
 let win;
 
 var createWindow = function createWindow () {
@@ -8,6 +10,7 @@ var createWindow = function createWindow () {
   win = new BrowserWindow( { width: 950, height: 750 } );
 
   global.getAddress = getAddress;
+  global.Clients = Clients;
 
   // and load the index.html of the app.
   win.loadURL( `file://${__dirname}/views/index.html` );

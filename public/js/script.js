@@ -2,47 +2,67 @@
   "use strict";
   var remote = require( 'electron' ).remote;
   var getAddress = remote.getGlobal( 'getAddress' );
+  var Clients = remote.getGlobal( 'Clients' );
 
   var app = new Vue({
     el: '#app'
     , data: {
       title: 'Oie'
-      , cep: ''
-      , endereco: ''
-      , numero: ''
-      , bairro: ''
-      , cidade: ''
-      , estado: ''
+
+      , postal_code: ''
+      , address: ''
+      , number: ''
+      , sublocality: ''
+      , city: ''
+      , state: ''
+
+      , phone: ''
+
       , search_button_disabled: false
       , search_button_text: 'Buscar'
+      , search_postal_code_error: null
     }
     , methods: {
-      searchCEP: function () {
-        if ( app.$data.cep.length < 8 ) {
+
+      findClient: function () {
+        console.log( app.$data.phone, Clients.getExample() ); // YEY!!!
+      }
+
+      , searchCEP: function () {
+        if ( app.$data.postal_code.length < 8 ) {
           return false;
         }
 
         app.$data.search_button_disabled = true;
         app.$data.search_button_text = 'Buscando...';
 
-        getAddress( app.$data.cep, function ( address ) {
-          address = address.results[ 0 ].address_components;
-          var tmp_data = {};
-          tmp_data.cidade = Helpers.getObjectFromArray( address, 'types', 'administrative_area_level_2' );
-          tmp_data.estado = Helpers.getObjectFromArray( address, 'types', 'administrative_area_level_1' );
-          tmp_data.bairro = Helpers.getObjectFromArray( address, 'types', 'sublocality' );
-          tmp_data.endereco = Helpers.getObjectFromArray( address, 'types', 'address' );
-          tmp_data.numero = Helpers.getObjectFromArray( address, 'types', 'number' );
+        getAddress( app.$data.postal_code, function ( result ) {
+          if ( !result.results || !result.results[ 0 ] ) {
+            app.$data.search_button_disabled = false;
+            app.$data.search_button_text = 'Buscar';
+            app.$data.search_postal_code_error = 'CEP não encontrado!';
+            return;
+          }
 
-          app.$data.cidade = tmp_data.cidade ? tmp_data.cidade.long_name : '';
-          app.$data.estado = tmp_data.estado ? tmp_data.estado.short_name : '';
-          app.$data.bairro = tmp_data.bairro ? tmp_data.bairro.long_name : '';
-          app.$data.endereco = tmp_data.endereco ? tmp_data.endereco.long_name : '';
-          app.$data.numero = tmp_data.numero ? tmp_data.numero.long_name : '';
+          result = result.results[ 0 ].address_components;
+          app.$data.search_postal_code_error = null;
+
+          var tmp_data = {};
+          tmp_data.city = Helpers.getObjectFromArray( result, 'types', 'administrative_area_level_2' );
+          tmp_data.state = Helpers.getObjectFromArray( result, 'types', 'administrative_area_level_1' );
+          tmp_data.sublocality = Helpers.getObjectFromArray( result, 'types', 'sublocality' );
+          tmp_data.address = Helpers.getObjectFromArray( result, 'types', 'route' );
+          tmp_data.number = Helpers.getObjectFromArray( result, 'types', 'number' );
+
+          app.$data.city = tmp_data.city ? tmp_data.city.long_name : '';
+          app.$data.state = tmp_data.state ? tmp_data.state.short_name : '';
+          app.$data.sublocality = tmp_data.sublocality ? tmp_data.sublocality.long_name : '';
+          app.$data.address = tmp_data.address ? tmp_data.address.long_name : '';
+          app.$data.number = tmp_data.number ? tmp_data.number.long_name : '';
 
           app.$data.search_button_disabled = false;
           app.$data.search_button_text = 'Buscar';
-          
+
           Materialize.updateTextFields();
         });
 
