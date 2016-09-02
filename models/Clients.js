@@ -1,9 +1,10 @@
-var mongoskin = require( '../config_db' )
-  , db = mongoskin.db
-  , mongo = mongoskin.mongo
-  , router = {};
+// var mongoskin = require( '../config_db' )
+//   , db = mongoskin.db
+//   , mongo = mongoskin.mongo
+//   , router = {};
 
-// var router = {};
+var router = {};
+
 
 var clientSchema = function ( data ) {
 	return {
@@ -30,6 +31,8 @@ router.getExample = function ( phone, callback ) {
     , state: 'Santa Catarina'
     , postal_code: '89120000'
   };
+
+  console.log( 'all: ', global.DB.clients.find() );
 
   return callback( clientSchema( clientExample ) );
 };

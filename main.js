@@ -1,5 +1,11 @@
 const { app, BrowserWindow, remote } = require( 'electron' )
 const https = require( 'https' )
+const loki = require( 'lokijs' )
+const lokidb = new loki( 'electron.json', { autosave: true } )
+global.DB = {
+  db: lokidb
+  , clients: lokidb.addCollection( 'clients', { indices: [ 'phone' ] } )
+};
 
 const Clients = require( './models/Clients' );
 
@@ -8,7 +14,7 @@ let win;
 var createWindow = function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 1280
+    width: 1000
     , height: 800
     , icon: `file://${__dirname}/public/icons/app.png`
   });
@@ -21,6 +27,10 @@ var createWindow = function createWindow () {
 
   // Open the DevTools.
   win.webContents.openDevTools();
+
+
+  global.DB.clients.insert( { name: 'Marcelo', phone: '47' } );
+
 
   // Emitted when the window is closed.
   win.on( 'closed', () => {
