@@ -32,7 +32,7 @@ router.getExample = function ( phone, callback ) {
     , postal_code: '89120000'
   };
 
-  console.log( 'all: ', global.DB.clients.find() );
+  // console.log( 'all: ', global.DB.clients.find() );
 
   return callback( clientSchema( clientExample ) );
 };

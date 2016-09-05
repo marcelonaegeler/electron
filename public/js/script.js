@@ -4,12 +4,12 @@
   var getAddress = remote.getGlobal( 'getAddress' );
   var Clients = remote.getGlobal( 'Clients' );
 
+
   var app = new Vue({
     el: '#app'
     , data: {
-      title: 'Oie'
 
-      , postal_code: ''
+      postal_code: ''
       , address: ''
       , number: ''
       , sublocality: ''
@@ -19,20 +19,31 @@
       , phone: ''
       , name: ''
 
+      , hasSearch: false
       , search_button_disabled: false
       , search_button_text: 'Buscar'
       , search_postal_code_error: null
+
+      , step: 0
     }
     , methods: {
 
-      findClient: function () {
+      changeStep: function ( event ) {
+        app.$data.step = +event.target.dataset.change;
+      }
+      , findClient: function () {
 
         Clients.getExample( app.$data.phone, function ( res ) {
           for ( var i in res ) {
             app.$data[ i ] = res[ i ];
           }
+
+          app.$data.hasSearch = true;
+          app.$data.step = 1;
         });
       }
+
+
 
       , searchCEP: function () {
         if ( app.$data.postal_code.length < 8 ) {
